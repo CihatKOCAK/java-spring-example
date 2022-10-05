@@ -31,7 +31,7 @@ public class Adress implements java.io.Serializable {
     @SequenceGenerator(name = "adress_id_seq", sequenceName = "adress_id_seq", allocationSize = 1)
     @GeneratedValue(generator = "adress_id_seq", strategy = javax.persistence.GenerationType.SEQUENCE)
     private Long id;
-    @Column(length = 500, name = "street")
+    @Column(length = 500, name = "adress")
     private String adress;
     
 

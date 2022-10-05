@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -28,8 +27,8 @@ public class PersonServiceImpi implements PersonService {
     @Override
     @Transactional
     public PersonDto save(PersonDto personDto) {
-        Assert.isNull(personDto.getFirstName(), "First name is required");
-        Assert.isNull(personDto.getLastName(), "Last name is required");
+        //Assert.isNull(personDto.getFirstName(), "First name is required");
+        //Assert.isNull(personDto.getLastName(), "Last name is required");
         Person person = new Person();
         person.setFirstName(personDto.getFirstName());
         person.setLastName(personDto.getLastName());
