@@ -32,15 +32,10 @@ public class Adress implements java.io.Serializable {
     @GeneratedValue(generator = "adress_id_seq", strategy = javax.persistence.GenerationType.SEQUENCE)
     private Long id;
     @Column(length = 500, name = "street")
-    private String street;
-    @Column(length = 500, name = "city")
-    private String city;
-    @Column(length = 500, name = "country")
-    private String country;
-    @Column(length = 6, name = "zip")
-    private String zipCode;
+    private String adress;
+    
 
-    @Column(length = 50, name = "status")
+    @Column(name = "status")
     private Boolean status;
 
     @Enumerated
@@ -50,7 +45,7 @@ public class Adress implements java.io.Serializable {
     @JoinColumn(name = "adress_id")
     private Person person;
 
-    enum AdressType {
+    public enum AdressType {
         HOME,
         WORK,
         OTHER
