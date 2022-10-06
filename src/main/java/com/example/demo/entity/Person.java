@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Entity
 @Table(name = "person")
 @AllArgsConstructor
@@ -45,9 +44,11 @@ public class Person {
     @Column(length = 50, name = "email")
     private String email;
 
+    @Column(name = "status")
+    private Boolean status;
+
     @OneToMany
     @JoinColumn(name = "address_id")
     private List<Address> addressList; // OneToMany -> join
 
-   
 }

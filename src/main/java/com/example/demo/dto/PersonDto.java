@@ -11,6 +11,7 @@ public class PersonDto {
     private String lastName;
     private String phone;
     private String email;
+    private Boolean status;
     private List<String> addresses;
 }
 

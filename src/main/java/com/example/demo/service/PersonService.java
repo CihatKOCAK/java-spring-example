@@ -12,8 +12,6 @@ public interface PersonService {
 
     PersonDto delete(PersonDto personDto);
 
-    PersonDto getById(PersonDto personDto);
-
     List<PersonDto> getAll();
 
 }

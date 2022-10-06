@@ -29,12 +29,14 @@ public class PersonServiceImpi implements PersonService {
     public PersonDto save(PersonDto personDto) {
         // Assert.isNotNull(personDto.getFirstName(), "First name is required");
         // Assert.isNotNull(personDto.getLastName(), "Last name is required");
-        
+        // get status required
+        Assert.notNull(personDto.getStatus(), "Status is required");
         Person person = new Person();
         person.setFirstName(personDto.getFirstName());
         person.setLastName(personDto.getLastName());
         person.setPhone(personDto.getPhone());
         person.setEmail(personDto.getEmail());
+        person.setStatus(personDto.getStatus());
         final Person personDb = personRepository.save(person);
         List<Address> adressList = new ArrayList<>();
         personDto.getAddresses().forEach(item -> {
@@ -56,27 +58,28 @@ public class PersonServiceImpi implements PersonService {
 
     @Override
     public PersonDto update(PersonDto personDto) {
-        // TODO Auto-generated method stub
-        return null;
+        Person person = personRepository.findById(personDto.getId()).get();
+        person.setFirstName(personDto.getFirstName());
+        person.setLastName(personDto.getLastName());
+        person.setPhone(personDto.getPhone());
+        person.setEmail(personDto.getEmail());
+        person.setStatus(personDto.getStatus());
+        personRepository.save(person);
+        return personDto;
     }
 
     @Override
     public PersonDto delete(PersonDto personDto) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public PersonDto getById(PersonDto personDto) {
-        // TODO Auto-generated method stub
-        return null;
+        // user deleteById remove
+        personRepository.deleteById(personDto.getId());
+        return personDto;
     }
 
     @Override
     public List<PersonDto> getAll() {
-        List<Person> persons = personRepository.findAll();
-        List<PersonDto> personDtos = new ArrayList<>();
-        persons.forEach(item -> {
+        List<Person> personList = personRepository.findAll();
+        List<PersonDto> personDtoList = new ArrayList<>();
+        personList.forEach(item -> {
             PersonDto personDto = new PersonDto();
             personDto.setId(item.getId());
             personDto.setFirstName(item.getFirstName());
@@ -84,10 +87,10 @@ public class PersonServiceImpi implements PersonService {
             personDto.setPhone(item.getPhone());
             personDto.setEmail(item.getEmail());
             personDto.setAddresses(
-                    item.getAddressList().stream().map(Address::getAddress).collect(Collectors.toList()));
-            personDtos.add(personDto);
+                    item.getAddressList().stream().map(item1 -> item1.getAddress()).collect(Collectors.toList()));
+            personDtoList.add(personDto);
         });
-        return personDtos;
+        return personDtoList;
     }
 
 }
