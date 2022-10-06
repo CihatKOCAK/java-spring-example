@@ -46,8 +46,8 @@ public class Person {
     private String email;
 
     @OneToMany
-    @JoinColumn(name = "adress_id")
-    private List<Adress> adressList; // OneToMany -> join
+    @JoinColumn(name = "address_id")
+    private List<Address> addressList; // OneToMany -> join
 
    
 }

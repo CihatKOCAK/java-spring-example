@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.example.demo.dto.PersonDto;
-import com.example.demo.entity.Adress;
+import com.example.demo.entity.Address;
 import com.example.demo.entity.Person;
-import com.example.demo.repo.AdressRepository;
+import com.example.demo.repo.AddressRepository;
 import com.example.demo.repo.PersonRepository;
 import com.example.demo.service.PersonService;
 
@@ -22,26 +22,32 @@ import lombok.RequiredArgsConstructor;
 public class PersonServiceImpi implements PersonService {
 
     private final PersonRepository personRepository;
-    private final AdressRepository adressRepository;
+    private final AddressRepository adressRepository;
 
     @Override
     @Transactional
     public PersonDto save(PersonDto personDto) {
-        //Assert.isNull(personDto.getFirstName(), "First name is required");
-        //Assert.isNull(personDto.getLastName(), "Last name is required");
+        // Assert.isNotNull(personDto.getFirstName(), "First name is required");
+        // Assert.isNotNull(personDto.getLastName(), "Last name is required");
+        
         Person person = new Person();
         person.setFirstName(personDto.getFirstName());
         person.setLastName(personDto.getLastName());
         person.setPhone(personDto.getPhone());
         person.setEmail(personDto.getEmail());
         final Person personDb = personRepository.save(person);
-        List<Adress> adressList = new ArrayList<>();
+        List<Address> adressList = new ArrayList<>();
         personDto.getAddresses().forEach(item -> {
-            Adress adress = new Adress();
-            adress.setAdress(item);
-            adress.setAdressType(Adress.AdressType.OTHER);
-            adress.setStatus(true);
-            adressList.add(adress);
+            System.out.println(item);
+            Address address = new Address();
+            address.setAddress(item);
+            address.setAddressType(
+                    item.contains("home") ? Address.AddressType.HOME
+                            : item.contains("work") ? Address.AddressType.WORK : Address.AddressType.OTHER);
+
+            address.setStatus(true);
+            address.setPerson(personDb);
+            adressList.add(address);
         });
         adressRepository.saveAll(adressList);
         personDto.setId(personDb.getId());
@@ -77,10 +83,9 @@ public class PersonServiceImpi implements PersonService {
             personDto.setLastName(item.getLastName());
             personDto.setPhone(item.getPhone());
             personDto.setEmail(item.getEmail());
-            personDto.setAddresses(item.getAdressList().stream().map(Adress::getAdress).collect(Collectors.toList()));
+            personDto.setAddresses(
+                    item.getAddressList().stream().map(Address::getAddress).collect(Collectors.toList()));
             personDtos.add(personDto);
-
-            System.out.println(item.getAdressList());
         });
         return personDtos;
     }

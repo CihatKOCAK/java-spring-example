@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,34 +19,34 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "person_adress")
+@Table(name = "person_address")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = { "id" })
 @ToString
-public class Adress implements java.io.Serializable {
+public class Address implements java.io.Serializable {
 
     @Id
-    @SequenceGenerator(name = "adress_id_seq", sequenceName = "adress_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "adress_id_seq", strategy = javax.persistence.GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "seq_address_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_address_id", strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(length = 500, name = "adress")
-    private String adress;
+    @Column(length = 500, name = "address")
+    private String address;
     
 
     @Column(name = "status")
     private Boolean status;
 
     @Enumerated
-    private AdressType adressType;
+    private AddressType addressType;
 
     @ManyToOne
-    @JoinColumn(name = "adress_id")
+    @JoinColumn(name = "address_id")
     private Person person;
 
-    public enum AdressType {
+    public enum AddressType {
         HOME,
         WORK,
         OTHER
