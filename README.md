@@ -24,7 +24,7 @@ A small backend application built using Java Spring and PostgreSQL
 
 | Body | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `status`      | `string` | **Required**. user's activity status |
+| `status`      | `boolean` | **Required**. user's activity status |
 | `firstName`      | `string` |  user's name |
 | `lastName`      | `string` |  user's lastName  |
 | `phone`      | `string` |  user's phone |
@@ -39,7 +39,7 @@ A small backend application built using Java Spring and PostgreSQL
 | Body | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. user's id |
-| `status`      | `string` | **Required**. user's activity status |
+| `status`      | `boolean` | **Required**. user's activity status |
 | `firstName`      | `string` |  user's name |
 | `lastName`      | `string` |  user's lastName  |
 | `phone`      | `string` |  user's phone |
